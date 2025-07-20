@@ -28,4 +28,10 @@ next-env.d.ts
 .DS_Store
 .next
 
-**/**/__pycache__/**
+__pycache__/
+**/__pycache__/
+ai-backend/**/__pycache__/
+
+ai-backend/app/__pycache__
+ai-backend/app/__pycache__/main.cpython-313.pyc
+ai-backend/app/__pycache__/main.cpython-313.pyc

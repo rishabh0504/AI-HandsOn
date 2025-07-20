@@ -1,17 +1,22 @@
+import json
+from datetime import datetime
+
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
-from app.core.logger_config import logger
 from langchain_ollama import ChatOllama
-from datetime import datetime
-import json
 from pydantic import BaseModel
+
+from app.core.logger_config import logger
+
 
 class ChatRequest(BaseModel):
     query: str
 
+
 llm = ChatOllama(model="llama3.2")
 
 langchain_ai_router = APIRouter(tags=["Langchain AI Router"], prefix="/langchain-ai")
+
 
 @langchain_ai_router.post("/chat")
 async def langchain_chat_conversation(payload: ChatRequest):

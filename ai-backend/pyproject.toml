@@ -1,0 +1,10 @@
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+select = ["E", "F", "I"]  # E = pycodestyle, F = pyflakes, I = isort
+fix = true
+exclude = ["__pycache__", ".venv", "migrations"]

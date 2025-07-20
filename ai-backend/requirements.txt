@@ -6,3 +6,5 @@ langchain-core
 langchain-ollama
 colorlog
 python-multipart
+pymupdf
+unstructured
