@@ -27,8 +27,8 @@ import {
 } from "@/components/ui/sidebar";
 
 interface AppSidebarProps {
-  selectedProject: string;
-  onProjectSelect: (projectId: string) => void;
+  selectedProject: { id: string; name: string };
+  onProjectSelect: (project: { id: string; name: string }) => void;
 }
 
 const projects = [
@@ -122,8 +122,8 @@ export function AppSidebar({
               {projects.map((project) => (
                 <SidebarMenuItem key={project.id}>
                   <SidebarMenuButton
-                    isActive={selectedProject === project.id}
-                    onClick={() => onProjectSelect(project.id)}
+                    isActive={selectedProject.id === project.id}
+                    onClick={() => onProjectSelect(project)}
                     className="w-full justify-start gap-3 px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[active=true]:bg-accent data-[active=true]:text-accent-foreground"
                   >
                     <project.icon className="h-4 w-4" />

@@ -6,7 +6,10 @@ import { ChatInterface } from "@/components/chat-interface";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 
 export default function Dashboard() {
-  const [selectedProject, setSelectedProject] = useState("simple-ai-chat");
+  const [selectedProject, setSelectedProject] = useState({
+    id: "simple-ai-chat",
+    name: "Simple AI Chat",
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -16,7 +19,7 @@ export default function Dashboard() {
           onProjectSelect={setSelectedProject}
         />
         <SidebarInset>
-          <ChatInterface projectId={selectedProject} />
+          <ChatInterface project={selectedProject} />
         </SidebarInset>
       </SidebarProvider>
     </div>

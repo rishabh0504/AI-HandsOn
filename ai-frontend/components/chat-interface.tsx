@@ -17,16 +17,12 @@ export interface Message {
 }
 
 interface ChatInterfaceProps {
-  projectId: string;
+  project: { id: string; name: string };
 }
 
-export function ChatInterface({ projectId }: ChatInterfaceProps) {
+export function ChatInterface({ project }: ChatInterfaceProps) {
   const { fetchStream, loading, message } = useFetchStream();
   const [messages, setMessages] = useState<Message[]>([]);
-
-  const projectName = projectId
-    .replace("-", " ")
-    .replace(/\b\w/g, (l) => l.toUpperCase());
 
   useEffect(() => {
     if (message) {
@@ -66,7 +62,7 @@ export function ChatInterface({ projectId }: ChatInterfaceProps) {
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
         <div className="flex flex-col">
-          <h1 className="text-lg font-semibold">{projectName}</h1>
+          <h1 className="text-lg font-semibold">{project.name}</h1>
           <p className="text-sm text-muted-foreground">AI Assistant Chat</p>
         </div>
       </header>
