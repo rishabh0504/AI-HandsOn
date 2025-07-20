@@ -28,10 +28,10 @@ export function useFetchStream() {
       while (true) {
         const { done, value } = await reader.read();
         const decodedResponse: any = decoder.decode(value, { stream: true });
-        console.log("decodedResponse", decodedResponse);
         setLoading(false);
         try {
           const response: any = JSON.parse(decodedResponse);
+
           partialText += response.response;
           setMessage({
             role: response?.role,

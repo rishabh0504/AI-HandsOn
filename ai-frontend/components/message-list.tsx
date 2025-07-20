@@ -2,7 +2,6 @@
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTypingEffect } from "@/hooks/use-typing-effect";
 import { Message } from "@/types";
 import { Bot, User } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -25,13 +24,8 @@ function MessageBubble({
   message: Message;
   isLatest: boolean;
 }) {
-  const displayContent = useTypingEffect(
-    message.content,
-    message.role === "assistant" && isLatest ? 30 : 0
-  );
-
+  const displayContent = message.content;
   const processedContent = preprocessMessage(displayContent);
-
   return (
     <div
       className={`flex gap-3 ${

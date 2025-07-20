@@ -7,52 +7,41 @@ import json
 from pydantic import BaseModel
 
 class ChatRequest(BaseModel):
-    query:str
-
+    query: str
 
 llm = ChatOllama(model="llama3.2")
 
-langchain_ai_router = APIRouter(
-    tags=["Langchain AI Router"], prefix="/langchain-ai"
-)
+langchain_ai_router = APIRouter(tags=["Langchain AI Router"], prefix="/langchain-ai")
 
 @langchain_ai_router.post("/chat")
-async def langchain_chat_conversation(payload : ChatRequest):
-    logger.info(f"Initiating the langchain AI content :: {payload.query}")
-    messages = [
-        {"role": "user", "content": payload.query}
-    ]
+async def langchain_chat_conversation(payload: ChatRequest):
+    logger.info(f"Initiating LangChain chat stream for: {payload.query}")
+    messages = [{"role": "user", "content": payload.query}]
 
-    def event_stream():
-        full_content = ""
+    def stream_generator():
         try:
             for chunk in llm.stream(messages):
                 if chunk.content:
-                    full_content += chunk.content
                     data = {
                         "role": "assistant",
-                        "content": full_content,
+                        "response": chunk.content,
                         "created_at": datetime.now().isoformat(),
-                        "files": [],
                         "done": False,
                         "model": "llama3.2",
                     }
-                    yield f"data: {json.dumps(data)}\n\n"
+                    yield json.dumps(data).encode("utf-8")
 
-            # Send final "done" message
             final_data = {
                 "role": "assistant",
-                "content": full_content,
+                "response": "",
                 "created_at": datetime.now().isoformat(),
-                "files": [],
                 "done": True,
                 "model": "llama3.2",
             }
-            yield f"data: {json.dumps(final_data)}\n\n"
-
+            yield json.dumps(final_data).encode("utf-8")
         except Exception as e:
-            logger.error(f"LLM streaming failed: {e}")
+            logger.error(f"Streaming error: {e}")
             error_data = {"error": str(e), "done": True}
-            yield f"data: {json.dumps(error_data)}\n\n"
+            yield json.dumps(error_data).encode("utf-8")
 
-    return StreamingResponse(event_stream(), media_type="text/event-stream")
+    return StreamingResponse(stream_generator(), media_type="application/octet-stream")
