@@ -38,6 +38,11 @@ const projects = [
     icon: Bot,
   },
   {
+    id: "langchain-ai-chat-langchain",
+    name: "Langchain AI Chat",
+    icon: Bot,
+  },
+  {
     id: "document-search-qa-web-app",
     name: "Document Search & Q&A Web App",
     icon: FileSearch,
