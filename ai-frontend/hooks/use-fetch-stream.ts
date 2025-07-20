@@ -1,11 +1,12 @@
 import { BACKEND_ENDPOINT, DEFAULT_LLM_MODEL } from "@/common/constant";
+import { Message } from "@/components/chat-interface";
 import { useState } from "react";
 
 export function useFetchStream() {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{message:string, done:boolean}>({message:'',done:false})
+  const [message, setMessage] = useState<Message | undefined>();
 
-  const fetchStream = async (endPoint:string, prompt: string)  => {
+  const fetchStream = async (endPoint: string, prompt: string) => {
     setLoading(true);
 
     try {
@@ -27,19 +28,21 @@ export function useFetchStream() {
       let partialText = "";
       while (true) {
         const { done, value } = await reader.read();
-        const decodedResponse:any = decoder.decode(value);
-        try{
-          const response = JSON.parse(decodedResponse)
-          console.log('Response', response)
-          partialText  += response.response;
-          setMessage({message:partialText, done:response?.done})
-          if(response?.done){
-            // setMessage({message:partialText, done})
+        const decodedResponse: any = decoder.decode(value);
+        setLoading(false);
+        try {
+          const response: any = JSON.parse(decodedResponse);
+          partialText += response.response;
+          setMessage({
+            role: response?.role,
+            content: partialText,
+            created_at: new Date(response?.created_at),
+            done: response?.done,
+          });
+          if (response?.done) {
             break;
           }
-        }catch(e:any){
-
-        }
+        } catch (e: any) {}
       }
     } catch (err) {
       console.error("Streaming error", err);

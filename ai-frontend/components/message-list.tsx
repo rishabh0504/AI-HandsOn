@@ -5,19 +5,20 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
-
-export interface Message {
-  role: "user" | "assistant";
-  content: string;
-  timestamp: Date;
-  files?: File[];
-}
+import { Message } from "./chat-interface";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 interface MessageListProps {
   messages: Message[];
   isLoading: boolean;
 }
-
+function preprocessMessage(content: string): string {
+  return content
+    .replaceAll("<think>", "**🤔 Think:** ")
+    .replaceAll("</think>", "");
+}
 function MessageBubble({
   message,
   isLatest,
@@ -29,6 +30,8 @@ function MessageBubble({
     message.content,
     message.role === "assistant" && isLatest ? 30 : 0
   );
+
+  const processedContent = preprocessMessage(displayContent);
 
   return (
     <div
@@ -52,11 +55,16 @@ function MessageBubble({
         <div
           className={`rounded-lg px-4 py-2 text-sm ${
             message.role === "user"
-              ? "bg-primary text-primary-foreground ml-auto"
+              ? "bg-muted border border-border/40 ml-auto"
               : "bg-muted border border-border/40"
           }`}
         >
-          <p className="whitespace-pre-wrap">{displayContent}</p>
+          <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap break-words">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {processedContent}
+            </ReactMarkdown>
+          </div>
+
           {message.files && message.files.length > 0 && (
             <div className="mt-2 space-y-1">
               {message.files.map((file, index) => (
@@ -72,7 +80,7 @@ function MessageBubble({
             message.role === "user" ? "text-right" : ""
           }`}
         >
-          {message.timestamp.toLocaleTimeString([], {
+          {message.created_at.toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           })}
@@ -105,7 +113,7 @@ export function MessageList({ messages, isLoading }: MessageListProps) {
   }, [messages]);
 
   return (
-    <ScrollArea ref={scrollAreaRef} className="flex-1 p-4">
+    <ScrollArea ref={scrollAreaRef} className="flex-1 p-8">
       <div className="space-y-6">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-center">

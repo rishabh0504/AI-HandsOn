@@ -6,7 +6,15 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useFetchStream } from "@/hooks/use-fetch-stream";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Message, MessageList } from "./message-list";
+import { MessageList } from "./message-list";
+export interface Message {
+  role: "user" | "assistant";
+  content: string;
+  created_at: Date;
+  files?: File[];
+  done?: boolean;
+  model?: string;
+}
 
 interface ChatInterfaceProps {
   projectId: string;
@@ -21,13 +29,23 @@ export function ChatInterface({ projectId }: ChatInterfaceProps) {
     .replace(/\b\w/g, (l) => l.toUpperCase());
 
   useEffect(() => {
-    console.table(message);
-    if (!message?.done) {
-      // setMessages(prev=>[
-      //   ...prev, prev[]
-      // ])
+    if (message) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === "user") {
+        setMessages((prev) => [...prev, message]);
+      } else {
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = {
+            ...updated[updated.length - 1],
+            content: message.content,
+            created_at: message.created_at,
+            done: message.done,
+          };
+          return updated;
+        });
+      }
     }
-    // if no entry in the messages, then use this one
   }, [message]);
 
   const handleChatMessages = useCallback(
@@ -35,7 +53,7 @@ export function ChatInterface({ projectId }: ChatInterfaceProps) {
       // Insert the user message first
       setMessages((prev) => [
         ...prev,
-        { content, role: "user", files: [], timestamp: new Date() },
+        { content, role: "user", files: [], created_at: new Date() },
       ]);
       await fetchStream("/api/generate", content);
     },

@@ -1,6 +1,18 @@
-"use client"
+"use client";
 
-import { Folder, LayoutDashboard, Settings, User } from "lucide-react"
+import {
+  Folder,
+  LayoutDashboard,
+  Settings,
+  User,
+  Bot,
+  FileSearch,
+  BookUser,
+  Headphones,
+  Code2,
+  BarChart3,
+  Workflow,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -12,28 +24,60 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 interface AppSidebarProps {
-  selectedProject: string
-  onProjectSelect: (projectId: string) => void
+  selectedProject: string;
+  onProjectSelect: (projectId: string) => void;
 }
 
 const projects = [
-  { id: "project-1", name: "Project 1", icon: Folder },
-  { id: "project-2", name: "Project 2", icon: Folder },
-  { id: "project-3", name: "Project 3", icon: Folder },
-  { id: "project-4", name: "Project 4", icon: Folder },
-  { id: "project-5", name: "Project 5", icon: Folder },
-  { id: "project-6", name: "Project 6", icon: Folder },
-]
+  {
+    id: "simple-ai-chat",
+    name: "Simple AI Chat",
+    icon: Bot,
+  },
+  {
+    id: "document-search-qa-web-app",
+    name: "Document Search & Q&A Web App",
+    icon: FileSearch,
+  },
+  {
+    id: "knowledge-base-chatbot",
+    name: "Personal Knowledge Base Chatbot",
+    icon: BookUser,
+  },
+  {
+    id: "automated-customer-support",
+    name: "Automated Customer Support",
+    icon: Headphones,
+  },
+  {
+    id: "code-review",
+    name: "AI-Powered Code Review",
+    icon: Code2,
+  },
+  {
+    id: "dynamic-report-generation",
+    name: "Dynamic Report Generation from Data",
+    icon: BarChart3,
+  },
+  {
+    id: "multi-agent-system",
+    name: "Multi-Agent System for Workflow Automation",
+    icon: Workflow,
+  },
+];
 
 const navigationItems = [
   { id: "dashboard", name: "Dashboard", icon: LayoutDashboard },
   { id: "settings", name: "Settings", icon: Settings },
-]
+];
 
-export function AppSidebar({ selectedProject, onProjectSelect }: AppSidebarProps) {
+export function AppSidebar({
+  selectedProject,
+  onProjectSelect,
+}: AppSidebarProps) {
   return (
     <Sidebar className="border-r border-border/40">
       <SidebarHeader className="border-b border-border/40 p-4">
@@ -43,7 +87,9 @@ export function AppSidebar({ selectedProject, onProjectSelect }: AppSidebarProps
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold">AI Dashboard</span>
-            <span className="text-xs text-muted-foreground">Professional Suite</span>
+            <span className="text-xs text-muted-foreground">
+              Professional Suite
+            </span>
           </div>
         </div>
       </SidebarHeader>
@@ -97,12 +143,14 @@ export function AppSidebar({ selectedProject, onProjectSelect }: AppSidebarProps
               <User className="h-4 w-4" />
               <div className="flex flex-col items-start">
                 <span className="text-sm font-medium">John Doe</span>
-                <span className="text-xs text-muted-foreground">john@example.com</span>
+                <span className="text-xs text-muted-foreground">
+                  john@example.com
+                </span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
