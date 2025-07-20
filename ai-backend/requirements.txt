@@ -8,3 +8,5 @@ colorlog
 python-multipart
 pymupdf
 unstructured
+langchain-community
+faiss-cpu
