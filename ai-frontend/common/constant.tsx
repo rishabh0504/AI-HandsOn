@@ -1,4 +1,5 @@
 import { LangchainChatInterface } from "@/components/langchain-chat-interface";
+import { RagBasedLangchainChatInterface } from "@/components/rag-document-search-interface";
 import { SimpleChatInterface } from "@/components/simple-chat-interface";
 import {
   BarChart3,
@@ -28,9 +29,11 @@ export const ROUTE_MAPPER: any = {
     disableFileUpload: true,
   },
   "document-search-qa-web-app": {
-    endpoint: "http://127.0.0.1:8000/api/langchain-ai",
-    component: SimpleChatInterface,
-    chatEndPoint: "/api/generate",
+    endpoint: "http://127.0.0.1:8000/api/rag-langchain-ai",
+    component: RagBasedLangchainChatInterface,
+    chatEndPoint: "/chat",
+    fileUploadEndPoint: "/upload-document",
+    disableFileUpload: false,
   },
   "knowledge-base-chatbot": {
     endpoint: "http://127.0.0.1:8000/api/langchain-ai",
@@ -61,12 +64,12 @@ export const ROUTE_MAPPER: any = {
 export const Projects = [
   {
     id: "simple-ai-chat",
-    name: "Simple AI Chat",
+    name: "✅ Simple AI Chat",
     icon: Bot,
   },
   {
     id: "langchain-ai-chat-langchain",
-    name: "Langchain AI Chat",
+    name: "✅ Langchain AI Chat",
     icon: Bot,
   },
   {

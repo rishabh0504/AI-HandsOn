@@ -6,3 +6,4 @@
 black
 ruff
 pre-commit
+faker

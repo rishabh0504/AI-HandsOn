@@ -10,15 +10,15 @@ import { Message } from "@/types";
 import { useCallback, useEffect, useState } from "react";
 import { MessageList } from "./message-list";
 
-interface LangchainChatInterfaceProps {
+interface RagBasedLangchainChatInterfaceProps {
   project: { id: string; name: string };
   disableFileUpload: boolean;
 }
 
-export function LangchainChatInterface({
+export function RagBasedLangchainChatInterface({
   project,
   disableFileUpload,
-}: LangchainChatInterfaceProps) {
+}: RagBasedLangchainChatInterfaceProps) {
   const { fetchStream, loading, message } = useFetchStream();
   const [messages, setMessages] = useState<Message[]>([]);
 

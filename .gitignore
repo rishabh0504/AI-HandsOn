@@ -33,5 +33,6 @@ __pycache__/
 ai-backend/**/__pycache__/
 
 ai-backend/app/__pycache__
-ai-backend/app/__pycache__/main.cpython-313.pyc
+all-MiniLM-L6-v2/
+ai-backend/app/__pycache__
 ai-backend/app/__pycache__/main.cpython-313.pyc

@@ -10,3 +10,4 @@ pymupdf
 unstructured
 langchain-community
 faiss-cpu
+sentence-transformers
