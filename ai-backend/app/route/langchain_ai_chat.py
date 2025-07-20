@@ -13,7 +13,7 @@ class ChatRequest(BaseModel):
     query: str
 
 
-llm = ChatOllama(model="llama3.2")
+llm = ChatOllama(model="deepseek-r1:7b")
 
 langchain_ai_router = APIRouter(tags=["Langchain AI Router"], prefix="/langchain-ai")
 
@@ -32,7 +32,7 @@ async def langchain_chat_conversation(payload: ChatRequest):
                         "response": chunk.content,
                         "created_at": datetime.now().isoformat(),
                         "done": False,
-                        "model": "llama3.2",
+                        "model": "deepseek-r1:7b",
                     }
                     yield json.dumps(data).encode("utf-8")
 
@@ -41,7 +41,7 @@ async def langchain_chat_conversation(payload: ChatRequest):
                 "response": "",
                 "created_at": datetime.now().isoformat(),
                 "done": True,
-                "model": "llama3.2",
+                "model": "deepseek-r1:7b",
             }
             yield json.dumps(final_data).encode("utf-8")
         except Exception as e:

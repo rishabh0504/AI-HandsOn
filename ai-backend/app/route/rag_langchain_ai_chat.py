@@ -32,7 +32,7 @@ embeddings = CustomSentenceTransformerEmbeddings(str(MODEL_DIR))
 
 # Optional: You can still keep Ollama for LLM generation
 from langchain_ollama import ChatOllama
-llm = ChatOllama(model="llama3.2")
+llm = ChatOllama(model="deepseek-r1:7b")
 
 vector_store = None
 
@@ -128,7 +128,7 @@ def chat_with_document(request: ChatRequest):
                             "response": chunk.content,
                             "created_at": datetime.now().isoformat(),
                             "done": False,
-                            "model": "llama3.2",
+                            "model": "deepseek-r1:7b",
                         }
                         yield json.dumps(data).encode("utf-8")
 
@@ -137,7 +137,7 @@ def chat_with_document(request: ChatRequest):
                     "response": "",
                     "created_at": datetime.now().isoformat(),
                     "done": True,
-                    "model": "llama3.2",
+                    "model": "deepseek-r1:7b",
                 }
                 yield json.dumps(final_data).encode("utf-8")
             except Exception as e:

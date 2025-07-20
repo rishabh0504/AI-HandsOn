@@ -1,5 +1,5 @@
-// hooks/useFileUpload.ts
 import { useState } from "react";
+import { toast } from "sonner";
 
 export interface UploadedFile {
   file: File;
@@ -16,13 +16,13 @@ export function useFileUpload(
   onUploadComplete?: (result: UploadResult, file: File) => void
 ) {
   const [file, setFile] = useState<UploadedFile | null>(null);
-  const [loading, setLoading] = useState<boolean>(false); // ⏳ Track upload status
+  const [loading, setLoading] = useState<boolean>(false);
 
   const uploadFile = async (fileToUpload: File): Promise<UploadResult> => {
     const formData = new FormData();
     formData.append("file", fileToUpload);
 
-    setLoading(true); // ✅ Start loading
+    setLoading(true);
     try {
       const response = await fetch(uploadUrl, {
         method: "POST",
@@ -32,19 +32,21 @@ export function useFileUpload(
       if (!response.ok) throw new Error("Upload failed.");
       const data = await response.json();
 
+      toast.success(`✅ ${fileToUpload.name} uploaded successfully`);
       return { success: true, data };
     } catch (error: any) {
+      toast.error(`❌ Upload failed: ${error.message || "Unknown error"}`);
       return {
         success: false,
         error: error.message || "Unknown error occurred.",
       };
     } finally {
-      setLoading(false); // ✅ End loading
+      setLoading(false);
     }
   };
 
   const setNewFile = async (newFile: File) => {
-    if (!newFile || loading) return; // Prevent duplicate uploads
+    if (!newFile || loading) return;
     setFile({ file: newFile });
 
     const result = await uploadFile(newFile);

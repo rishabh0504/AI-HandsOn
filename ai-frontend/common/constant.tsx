@@ -13,7 +13,7 @@ import {
   Workflow,
 } from "lucide-react";
 
-export const DEFAULT_LLM_MODEL = "deepseek-r1:1.5b";
+export const DEFAULT_LLM_MODEL = "deepseek-r1:7b";
 
 export const ROUTE_MAPPER: any = {
   "simple-ai-chat": {
@@ -74,7 +74,7 @@ export const Projects = [
   },
   {
     id: "document-search-qa-web-app",
-    name: "Document Search & Q&A Web App",
+    name: "✅ Document Search & Q&A Web App",
     icon: FileSearch,
   },
   {
