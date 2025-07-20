@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.route import langchain_ai_chat
+from app.route import langchain_ai_chat, rag_langchain_ai_chat
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -21,6 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(langchain_ai_chat.langchain_ai_router)
+app.include_router(rag_langchain_ai_chat.rag_langchain_ai_chat_router)
 
 @app.get("/")
 def health_test():
