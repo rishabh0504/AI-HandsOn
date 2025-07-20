@@ -1,24 +1,24 @@
 "use client";
 
-import { DEFAULT_LLM_MODEL, ROUTE_MAPPER } from "@/common/constant";
 import { ChatInput } from "@/components/chat-input";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useFetchStream } from "@/hooks/use-fetch-stream";
-import { Message } from "@/types";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageList } from "./message-list";
+import { Message } from "@/types";
+import { DEFAULT_LLM_MODEL, ROUTE_MAPPER } from "@/common/constant";
 
-interface ChatInterfaceProps {
+interface LangchainChatInterfaceProps {
   project: { id: string; name: string };
   disableFileUpload: boolean;
 }
 
-export function ChatInterface({
+export function LangchainChatInterface({
   project,
   disableFileUpload,
-}: ChatInterfaceProps) {
+}: LangchainChatInterfaceProps) {
   const { fetchStream, loading, message } = useFetchStream();
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -52,7 +52,7 @@ export function ChatInterface({
       const selectedProjectConfig = ROUTE_MAPPER[project.id];
       await fetchStream(
         `${selectedProjectConfig.endpoint}${selectedProjectConfig.chatEndPoint}`,
-        JSON.stringify({ prompt: content, model: DEFAULT_LLM_MODEL })
+        JSON.stringify({ query: content })
       );
     },
     []

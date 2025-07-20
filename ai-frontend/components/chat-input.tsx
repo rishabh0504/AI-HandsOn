@@ -2,10 +2,10 @@
 
 import type React from "react";
 
-import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Send, Paperclip, X } from "lucide-react";
+import { Paperclip, Send, X } from "lucide-react";
+import { useRef, useState } from "react";
 
 interface ChatInputProps {
   onSendMessage: (content: string, files?: File[]) => void;

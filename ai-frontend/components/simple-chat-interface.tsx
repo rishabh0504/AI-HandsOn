@@ -1,26 +1,24 @@
 "use client";
 
+import { DEFAULT_LLM_MODEL, ROUTE_MAPPER } from "@/common/constant";
 import { ChatInput } from "@/components/chat-input";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useFetchStream } from "@/hooks/use-fetch-stream";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Message } from "@/types";
+import { useCallback, useEffect, useState } from "react";
 import { MessageList } from "./message-list";
-export interface Message {
-  role: "user" | "assistant";
-  content: string;
-  created_at: Date;
-  files?: File[];
-  done?: boolean;
-  model?: string;
-}
 
 interface SimpleChatInterfaceProps {
   project: { id: string; name: string };
+  disableFileUpload: boolean;
 }
 
-export function SimpleChatInterface({ project }: SimpleChatInterfaceProps) {
+export function SimpleChatInterface({
+  project,
+  disableFileUpload,
+}: SimpleChatInterfaceProps) {
   const { fetchStream, loading, message } = useFetchStream();
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -51,7 +49,11 @@ export function SimpleChatInterface({ project }: SimpleChatInterfaceProps) {
         ...prev,
         { content, role: "user", files: [], created_at: new Date() },
       ]);
-      await fetchStream("/api/generate", content);
+      const selectedProjectConfig = ROUTE_MAPPER[project.id];
+      await fetchStream(
+        `${selectedProjectConfig.endpoint}${selectedProjectConfig.chatEndPoint}`,
+        JSON.stringify({ prompt: content, model: DEFAULT_LLM_MODEL })
+      );
     },
     []
   );
@@ -74,7 +76,7 @@ export function SimpleChatInterface({ project }: SimpleChatInterfaceProps) {
           <ChatInput
             onSendMessage={handleChatMessages}
             isLoading={loading}
-            disableFileUpload
+            disableFileUpload={disableFileUpload}
           />
         </Card>
       </div>

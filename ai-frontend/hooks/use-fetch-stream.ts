@@ -1,18 +1,17 @@
-import { BACKEND_ENDPOINT, DEFAULT_LLM_MODEL } from "@/common/constant";
-import { Message } from "@/components/chat-interface";
+import { Message } from "@/types";
 import { useState } from "react";
 
 export function useFetchStream() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<Message | undefined>();
 
-  const fetchStream = async (endPoint: string, prompt: string) => {
+  const fetchStream = async (endPoint: string, payload: any) => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${BACKEND_ENDPOINT}${endPoint}`, {
+      const res = await fetch(endPoint, {
         method: "POST",
-        body: JSON.stringify({ prompt: prompt, model: DEFAULT_LLM_MODEL }),
+        body: payload,
         headers: {
           "Content-Type": "application/json",
         },
@@ -28,7 +27,8 @@ export function useFetchStream() {
       let partialText = "";
       while (true) {
         const { done, value } = await reader.read();
-        const decodedResponse: any = decoder.decode(value);
+        const decodedResponse: any = decoder.decode(value, { stream: true });
+        console.log("decodedResponse", decodedResponse);
         setLoading(false);
         try {
           const response: any = JSON.parse(decodedResponse);

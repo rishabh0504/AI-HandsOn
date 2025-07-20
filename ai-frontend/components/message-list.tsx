@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bot, User } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
-import { Message } from "./chat-interface";
+import { Message } from "@/types";
+import { Bot, User } from "lucide-react";
+import { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 
 interface MessageListProps {
   messages: Message[];

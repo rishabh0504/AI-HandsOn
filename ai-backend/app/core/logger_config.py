@@ -4,7 +4,7 @@ import colorlog
 logging_level = logging.DEBUG
 log_colors = {
     'DEBUG': 'cyan',
-    'INFO': 'light_white',
+    'INFO': 'green',
     'WARNING': 'yellow',
     'ERROR': 'red',
     'CRITICAL': 'bold_red',

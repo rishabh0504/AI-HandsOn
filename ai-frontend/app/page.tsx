@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { ROUTE_MAPPER } from "@/common/constant";
 import { AppSidebar } from "@/components/app-sidebar";
-import { ChatInterface } from "@/components/chat-interface";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
-import { SimpleChatInterface } from "@/components/simple-chat-interface";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { useState } from "react";
 
 export default function Dashboard() {
   const [selectedProject, setSelectedProject] = useState({
     id: "simple-ai-chat",
     name: "Simple AI Chat",
   });
+  const Component = ROUTE_MAPPER[selectedProject.id]?.component;
 
   return (
     <div className="min-h-screen bg-background">
@@ -20,11 +20,12 @@ export default function Dashboard() {
           onProjectSelect={setSelectedProject}
         />
         <SidebarInset>
-          {selectedProject.id === "simple-ai-chat" ? (
-            <SimpleChatInterface project={selectedProject} />
-          ) : (
-            <ChatInterface project={selectedProject} />
-          )}
+          <Component
+            project={selectedProject}
+            disableFileUpload={
+              ROUTE_MAPPER[selectedProject.id]?.disableFileUpload
+            }
+          />
         </SidebarInset>
       </SidebarProvider>
     </div>

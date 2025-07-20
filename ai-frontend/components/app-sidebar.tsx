@@ -1,18 +1,6 @@
 "use client";
 
-import {
-  Folder,
-  LayoutDashboard,
-  Settings,
-  User,
-  Bot,
-  FileSearch,
-  BookUser,
-  Headphones,
-  Code2,
-  BarChart3,
-  Workflow,
-} from "lucide-react";
+import { NavigationItems, Projects } from "@/common/constant";
 import {
   Sidebar,
   SidebarContent,
@@ -25,59 +13,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { LayoutDashboard, User } from "lucide-react";
 
 interface AppSidebarProps {
   selectedProject: { id: string; name: string };
   onProjectSelect: (project: { id: string; name: string }) => void;
 }
-
-const projects = [
-  {
-    id: "simple-ai-chat",
-    name: "Simple AI Chat",
-    icon: Bot,
-  },
-  {
-    id: "langchain-ai-chat-langchain",
-    name: "Langchain AI Chat",
-    icon: Bot,
-  },
-  {
-    id: "document-search-qa-web-app",
-    name: "Document Search & Q&A Web App",
-    icon: FileSearch,
-  },
-  {
-    id: "knowledge-base-chatbot",
-    name: "Personal Knowledge Base Chatbot",
-    icon: BookUser,
-  },
-  {
-    id: "automated-customer-support",
-    name: "Automated Customer Support",
-    icon: Headphones,
-  },
-  {
-    id: "code-review",
-    name: "AI-Powered Code Review",
-    icon: Code2,
-  },
-  {
-    id: "dynamic-report-generation",
-    name: "Dynamic Report Generation from Data",
-    icon: BarChart3,
-  },
-  {
-    id: "multi-agent-system",
-    name: "Multi-Agent System for Workflow Automation",
-    icon: Workflow,
-  },
-];
-
-const navigationItems = [
-  { id: "dashboard", name: "Dashboard", icon: LayoutDashboard },
-  { id: "settings", name: "Settings", icon: Settings },
-];
 
 export function AppSidebar({
   selectedProject,
@@ -106,7 +47,7 @@ export function AppSidebar({
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navigationItems.map((item) => (
+              {NavigationItems.map((item) => (
                 <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton className="w-full justify-start gap-3 px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
                     <item.icon className="h-4 w-4" />
@@ -124,7 +65,7 @@ export function AppSidebar({
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {projects.map((project) => (
+              {Projects.map((project) => (
                 <SidebarMenuItem key={project.id}>
                   <SidebarMenuButton
                     isActive={selectedProject.id === project.id}
@@ -147,9 +88,9 @@ export function AppSidebar({
             <SidebarMenuButton className="w-full justify-start gap-3 px-3 py-2">
               <User className="h-4 w-4" />
               <div className="flex flex-col items-start">
-                <span className="text-sm font-medium">John Doe</span>
+                <span className="text-sm font-medium">Rishabh Tiwari</span>
                 <span className="text-xs text-muted-foreground">
-                  john@example.com
+                  rishabh.tiwari0504@gmail.com
                 </span>
               </div>
             </SidebarMenuButton>
