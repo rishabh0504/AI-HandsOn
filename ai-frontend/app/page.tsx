@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function Dashboard() {
   const [selectedProject, setSelectedProject] = useState({
     id: "simple-ai-chat",
-    name: "Simple AI Chat",
+    name: "✅ (GenAI) Simple AI Chat",
   });
   const Component = ROUTE_MAPPER[selectedProject.id]?.component;
 

@@ -14,7 +14,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { LayoutDashboard, User } from "lucide-react";
-
 interface AppSidebarProps {
   selectedProject: { id: string; name: string };
   onProjectSelect: (project: { id: string; name: string }) => void;
@@ -68,6 +67,7 @@ export function AppSidebar({
               {Projects.map((project) => (
                 <SidebarMenuItem key={project.id}>
                   <SidebarMenuButton
+                    tooltip={project.name}
                     isActive={selectedProject.id === project.id}
                     onClick={() => onProjectSelect(project)}
                     className="w-full justify-start gap-3 px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[active=true]:bg-accent data-[active=true]:text-accent-foreground"

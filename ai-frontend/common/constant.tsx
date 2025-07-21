@@ -64,17 +64,17 @@ export const ROUTE_MAPPER: any = {
 export const Projects = [
   {
     id: "simple-ai-chat",
-    name: "✅ Simple AI Chat",
+    name: "✅ (GenAI) Simple AI Chat",
     icon: Bot,
   },
   {
     id: "langchain-ai-chat-langchain",
-    name: "✅ Langchain AI Chat",
+    name: "✅ (AI Agent) Langchain AI Chat",
     icon: Bot,
   },
   {
     id: "document-search-qa-web-app",
-    name: "✅ Document Search & Q&A Web App",
+    name: "✅ ( RagAI Agent) Document Search & Q&A",
     icon: FileSearch,
   },
   {
