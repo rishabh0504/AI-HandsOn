@@ -8,12 +8,11 @@ from pydantic import BaseModel
 
 from app.core.logger_config import logger
 
-
 class ChatRequest(BaseModel):
     query: str
 
 
-llm = ChatOllama(model="deepseek-r1:7b")
+llm = ChatOllama(model="gemma3:4b")
 
 langchain_ai_router = APIRouter(tags=["Langchain AI Router"], prefix="/langchain-ai")
 
@@ -32,7 +31,7 @@ async def langchain_chat_conversation(payload: ChatRequest):
                         "response": chunk.content,
                         "created_at": datetime.now().isoformat(),
                         "done": False,
-                        "model": "deepseek-r1:7b",
+                        "model": "gemma3:4b",
                     }
                     yield json.dumps(data).encode("utf-8")
 
@@ -41,7 +40,7 @@ async def langchain_chat_conversation(payload: ChatRequest):
                 "response": "",
                 "created_at": datetime.now().isoformat(),
                 "done": True,
-                "model": "deepseek-r1:7b",
+                "model": "gemma3:4b",
             }
             yield json.dumps(final_data).encode("utf-8")
         except Exception as e:

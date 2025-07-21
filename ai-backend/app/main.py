@@ -1,6 +1,8 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from app.route import langchain_ai_chat, rag_langchain_ai_chat
 
 app = FastAPI(

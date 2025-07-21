@@ -11,3 +11,6 @@ unstructured
 langchain-community
 faiss-cpu
 sentence-transformers
+python-dotenv
+qdrant-client
+minio
