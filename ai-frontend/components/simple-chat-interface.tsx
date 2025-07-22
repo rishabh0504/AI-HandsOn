@@ -52,7 +52,11 @@ export function SimpleChatInterface({
       const selectedProjectConfig = ROUTE_MAPPER[project.id];
       await fetchStream(
         `${selectedProjectConfig.endpoint}${selectedProjectConfig.chatEndPoint}`,
-        JSON.stringify({ prompt: content, model: DEFAULT_LLM_MODEL })
+        JSON.stringify({
+          prompt: content,
+          model: DEFAULT_LLM_MODEL,
+          stream: true,
+        })
       );
     },
     []

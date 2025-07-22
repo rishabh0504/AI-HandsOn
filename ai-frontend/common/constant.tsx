@@ -12,12 +12,10 @@ import {
   Settings,
   Workflow,
 } from "lucide-react";
-
 export const DEFAULT_LLM_MODEL = "deepseek-r1:7b";
-
 export const ROUTE_MAPPER: any = {
   "simple-ai-chat": {
-    endpoint: "http://127.0.0.1:11434",
+    endpoint: "http://192.168.1.20:11434",
     component: SimpleChatInterface,
     disableFileUpload: true,
     chatEndPoint: "/api/generate",
@@ -103,7 +101,6 @@ export const Projects = [
     icon: Workflow,
   },
 ];
-
 export const NavigationItems = [
   { id: "dashboard", name: "Dashboard", icon: LayoutDashboard },
   { id: "settings", name: "Settings", icon: Settings },
