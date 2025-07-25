@@ -14,4 +14,8 @@ sentence-transformers
 python-dotenv
 qdrant-client
 minio
-fastmcp
+WebSearcher
+fastapi-mcp
+duckduckgo-search
+bs4
+langgraph
