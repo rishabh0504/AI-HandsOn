@@ -4,7 +4,7 @@ These projects will help you become proficient in **LangChain**, **LLM integrati
 
 ---
 
-## 🧾 1. Document Search & Q&A Web App (Beginner)
+## 🧾 1. Document Search & Q&A Web App (Beginner) (Done)
 
 **What:**  
 Upload PDFs, DOCs, or text files → build vector embeddings → store in a vector DB → query with natural language → answer questions based on uploaded docs.
@@ -25,7 +25,7 @@ Upload PDFs, DOCs, or text files → build vector embeddings → store in a vect
 
 ---
 
-## 💬 2. Personal Knowledge Base Chatbot (Intermediate)
+## 💬 2. Personal Knowledge Base Chatbot (Intermediate) (Done)
 
 **What:**  
 Chatbot interface connected to LangChain agents + retrieval-augmented generation on your notes, emails, or internal knowledge base.
@@ -46,7 +46,7 @@ Chatbot interface connected to LangChain agents + retrieval-augmented generation
 
 ---
 
-## 🤖 3. Automated Customer Support Agent
+## 🤖 3. Automated Customer Support Agent (Done)
 
 **What:**  
 A chatbot to answer FAQs, pull info from manuals, escalate to humans, and integrate with tools like CRM or ticketing systems.
@@ -68,7 +68,7 @@ A chatbot to answer FAQs, pull info from manuals, escalate to humans, and integr
 
 ---
 
-## 👨‍💻 4. AI-Powered Code Review Assistant
+## 👨‍💻 4. AI-Powered Code Review Assistant (In Progress)
 
 **What:**  
 Upload code snippets or repos → analyze → get improvement suggestions, bug detections, or architectural feedback.
